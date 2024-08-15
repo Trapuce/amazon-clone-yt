@@ -1,7 +1,7 @@
 import React, { useState , useEffect} from "react";
 import Image from "next/image";
 import { StarIcon } from "@heroicons/react/20/solid";
-import Currency from "react-currency-formatter";
+import {IntlProvider, FormattedNumber} from 'react-intl'
 import prime from "./assets/prime.png";
 
 export default function Products({
@@ -41,8 +41,10 @@ export default function Products({
           ))}
       </div>
       <p className="text-xs my-2 line-clamp-2">{description}</p>
-      <div className="mb-5">
-        <Currency quantity={price} currency="EUR" />
+      <div className="mb-5"> 
+        <IntlProvider >       
+        <FormattedNumber value={price} style="currency" currency="EUR" />
+        </IntlProvider>
       </div>
 
       {hasPrime && (
