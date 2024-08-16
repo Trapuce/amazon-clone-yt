@@ -6,12 +6,35 @@ import { selectItems, selectTotal } from "../slices/basketSlice";
 import CheckoutProduct from "../components/CheckoutProduct";
 import { useSession, signIn, signOut } from "next-auth/react";
 import {IntlProvider, FormattedNumber} from 'react-intl'
-
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+const stripePromise = loadStripe(process.env.stripe_public_key)
 
 export default function Checkout() {
   const items = useSelector(selectItems);
   const total = useSelector(selectTotal)
   const { data: session } = useSession();
+  const createCheckoutSession = async () => {
+    try {
+      const stripe = await stripePromise;
+  
+      const checkoutSession = await axios.post("/api/create-checkout-session", {
+        items: items,
+        email: session.user.email,
+      });
+  
+      const result = await stripe.redirectToCheckout({
+        sessionId: checkoutSession.data.id,
+      });
+  
+      if (result.error) {
+        alert(result.error.message);
+      }
+    } catch (error) {
+      console.error("Error creating checkout session:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
 
   return (
     <div className="bg-gray-100">
@@ -61,6 +84,8 @@ export default function Checkout() {
                 </span>
               </h2>
               <button
+              onClick={createCheckoutSession}
+              role="link"
               disabled={!session}
                 className={`button mt-2 ${
                   !session &&
