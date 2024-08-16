@@ -3,6 +3,8 @@ import Image from "next/image";
 import { StarIcon } from "@heroicons/react/20/solid";
 import {IntlProvider, FormattedNumber} from 'react-intl'
 import prime from "./assets/prime.png";
+import { useDispatch } from "react-redux";
+import { addToBasket } from "../slices/basketSlice";
 
 export default function Products({
   id,
@@ -19,7 +21,20 @@ export default function Products({
     setRating(Math.floor(Math.random() * 5) + 1);
     setHasPrime(Math.random() < 0.5);
   }, []);
-
+  const dispatch = useDispatch();
+const addItemToBasket = ()=>{
+  const products = {
+    id,
+    title,
+    price,
+    rating,
+    description,
+    category,
+    image,
+    hasPrime,
+  }
+  dispatch(addToBasket(products))
+}
   return (
     <div className="relative flex flex-col m-5 bg-white z-30 p-10">
       <p className="absolute top-2 right-2 italic text-gray-400 text-xs">{category}</p>
@@ -57,7 +72,7 @@ export default function Products({
           <p className="text-xs text-gray-500">Free Next-day Delivery</p>
         </div>
       )}
-      <button className="mt-auto button">Add to Basket</button>
+      <button onClick={addItemToBasket} className="mt-auto button">Add to Basket</button>
     </div>
   );
 }

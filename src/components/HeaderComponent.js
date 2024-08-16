@@ -6,14 +6,23 @@ import {
   ShoppingCartIcon,
   ShoppingBagIcon,
 } from "@heroicons/react/24/outline";
+import { useSession, signIn, signOut } from "next-auth/react"
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { selectItems } from "../slices/basketSlice";
+
 export default function HeaderComponent() {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const items = useSelector(selectItems)
   return (
-    <div>
+    <div className="sticky top-0 z-50">
       {/* top nav */}
 
       <div className="flex items-center bg-amazon_blue p-1 flex-grow py-2">
         <div className="mt-3 flex items-center flex-grow sm:flex-grow-0  ">
           <Image
+          onClick={()=>{router.push("/")}}
             className=" cursor-pointer"
             src="https://links.papareact.com/f90"
             alt=""
@@ -33,17 +42,19 @@ export default function HeaderComponent() {
         {/**right */}
 
         <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
-          <div className="link">
-            <p>Hello trapuce</p>
+          <div onClick={ !session ? signIn : signOut} className="cursor-pointer link">
+            <p>
+               {session ? `Hello, ${session.user.name}`: "Sign In"}
+            </p>
             <p className="font-extrabold md:text-sm">Account & lists</p>
           </div>
           <div className="link">
             <p>Return</p>
             <p className="font-extrabold md:text-sm">& Orders</p>
           </div>
-          <div className="relative link flex items-center">
+          <div  onClick={()=>{router.push("/Checkout")}} className="relative link flex items-center">
             <span className="absolute top-0 right-0 md:right-10 bg-yellow-400 rounded-full text-center h-4 w-4 text-black font-bold">
-              0
+              {items.length}
             </span>
             <ShoppingCartIcon className="h-10" />
             <p className=" hidden md:inline  font-extrabold md:text-sm">
