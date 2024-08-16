@@ -44,7 +44,7 @@ const addItemToBasket = ()=>{
           height={200}
           alt={title}
           src={image}
-          objectFit="contain"
+          className="object-contain"
         />
       </div>
       <h4 className="my-3">{title}</h4>

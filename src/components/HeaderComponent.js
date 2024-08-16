@@ -48,7 +48,7 @@ export default function HeaderComponent() {
             </p>
             <p className="font-extrabold md:text-sm">Account & lists</p>
           </div>
-          <div className="link">
+          <div onClick={()=> router.push("/Orders")} className=" cursor-pointer link">
             <p>Return</p>
             <p className="font-extrabold md:text-sm">& Orders</p>
           </div>
