@@ -3,8 +3,8 @@ import Stripe from 'stripe';
 import admin from 'firebase-admin';
 
 // Initialisation de Firebase Admin
-const serviceAccount = require('../../../permissions.json');
-
+//const serviceAccount = require('../../../permissions.json');
+const serviceAccount = JSON.parse(process.env.GOOGLE_CLOUD_SERVICE_ACCOUNT_KEY);
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
