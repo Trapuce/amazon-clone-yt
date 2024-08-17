@@ -1,28 +1,16 @@
-# Installation Steps
+# Amazon 2.0
 
+Amazon 2.0 est une application de commerce électronique construite avec **Next.js** et **React.js**. Ce projet intègre des technologies modernes telles que **Tailwind CSS**, **Redux**, **Firebase**, **NextAuth**, **Stripe Checkout**, et utilise des **Webhooks** pour une expérience utilisateur fluide et moderne.
 
+## Installation
 
-## Using npm
+### Prérequis
 
-Run commands
+Assurez-vous d'avoir **Node.js** installé. Vous pouvez télécharger et installer Node.js à partir de [nodejs.org](https://nodejs.org/).
 
-1) ```npm install```
+### Installation avec npm
 
+1. Installez les dépendances du projet :
 
-2) ```npm run dev```
-
-
-## Or using yarn
-
-Run commands 
-
-1) ```npm install --global yarn```
-
-2) ```yarn install```
-
-3) ```yarn run dev```
-
-
-### If you see the window below then you are set to build AMAZON 2.0!
-
-![Template Screenshot](TemplateScreenshot.jpg?raw=true "Template Screenshot")
+   ```bash
+   npm install
